@@ -4,14 +4,14 @@ var regexVowels = /[aeiou]/;
 
 
 var translator = function(input){
-  if (!input.charAt(0).match(regexLetters)) {
+  if (!input.charAt(0).match(regexLetters)) {       // filters input starting with a non-letter
     return input;
-  } else if (input.match(regexVowels)){
+  } else if (input.charAt(0).match(regexVowels)){     // attaches "way" to words starting with vowel
     return input + "way";
-  } else if (!input.match(regexVowels)){
-    return input + "ay";
+  } else if (!input.charAt(0).match(regexVowels)){    // attaches "ay" to words starting with consonant
+    return input.slice(1) + input.charAt(0) + "ay";
   } else {
-    return input + "error";
+    return "error";
   }
 };
 
