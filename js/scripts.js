@@ -1,6 +1,20 @@
 var regexLetters = /[a-zA-Z]/;
 var regexVowels = /[aeiou]/i;
-// var regexConsonants = /
+
+var breakpoint;
+
+var multConsonants = function(word) {
+  var consonantString = "";
+  for (var i = 0; i < word.length; i++) {
+    if (!word.charAt(i).match(regexVowels) || (word.charAt(i) === "u" && word.charAt(i-1) === "q")) {
+      consonantString = consonantString + word.charAt(i);
+    } else {
+      breakpoint = i;
+      break;
+    }
+  }
+  return word.slice(breakpoint) + consonantString + "ay";
+}
 
 
 var translator = function(input){
@@ -8,8 +22,8 @@ var translator = function(input){
     return input;
   } else if (input.charAt(0).match(regexVowels)){     // attaches "way" to words starting with vowel
     return input + "way";
-  } else if (!input.charAt(0).match(regexVowels)){    // attaches "ay" to words starting with consonant
-    return input.slice(1) + input.charAt(0) + "ay";
+  } else if (!input.charAt(0).match(regexVowels)){    // translate words starting with 1 or more consonants
+    return multConsonants(input);
   } else {
     return "error";
   }
