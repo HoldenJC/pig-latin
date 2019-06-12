@@ -1,5 +1,5 @@
 var regexLetters = /[a-zA-Z]/;
-var regexVowels = /[aeiou]/;
+var regexVowels = /[aeiou]/i;
 // var regexConsonants = /
 
 
