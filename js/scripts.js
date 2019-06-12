@@ -1,7 +1,9 @@
 var regexLetters = /[a-zA-Z]/;
 var regexVowels = /[aeiou]/i;
-
 var breakpoint;
+var userSentence = [];
+var resultArray = [];
+var translatedSentence = "";
 
 var multConsonants = function(word) {
   var consonantString = "";
@@ -18,15 +20,20 @@ var multConsonants = function(word) {
 
 
 var translator = function(input){
-  if (!input.charAt(0).match(regexLetters)) {       // filters input starting with a non-letter
-    return input;
-  } else if (input.charAt(0).match(regexVowels)){     // attaches "way" to words starting with vowel
-    return input + "way";
-  } else if (!input.charAt(0).match(regexVowels)){    // translate words starting with 1 or more consonants
-    return multConsonants(input);
-  } else {
-    return "error";
-  }
+  input.forEach(function(element){
+    if (!element.charAt(0).match(regexLetters)) {       // filters element starting with a non-letter
+      resultArray.push(element);
+      // return element;
+    } else if (element.charAt(0).match(regexVowels)){     // attaches "way" to words starting with vowel
+      resultArray.push(element + "way");
+      // return element + "way";
+    } else if (!element.charAt(0).match(regexVowels)){    // translate words starting with 1 or more consonants
+      resultArray.push(multConsonants(element));
+      // return multConsonants(element);
+    } else {
+      return "error";
+    }
+  });
 };
 
 
@@ -34,12 +41,12 @@ $(function(){
   $("#user-input").submit(function(event){
     event.preventDefault();
 
-    var userSentence = $("#userInput").val();
+    userSentence = ($("#userInput").val()).split(" ");
 
-    var translatedSentence = translator(userSentence);
+    translator(userSentence);
+    translatedSentence = (resultArray).join(" ");
 
     $("#result").after(translatedSentence);
-
 
 
 
