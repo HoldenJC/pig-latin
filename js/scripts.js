@@ -17,19 +17,15 @@ var multConsonants = function(word) {
   return word.slice(breakpoint) + consonantString + "ay";
 }
 
-
 var translator = function(input){
   var resultArray = [];
   input.forEach(function(element){
     if (!element.charAt(0).match(regexLetters)) {       // filters element starting with a non-letter
       resultArray.push(element);
-      // return element;
     } else if (element.charAt(0).match(regexVowels)){     // attaches "way" to words starting with vowel
       resultArray.push(element + "way");
-      // return element + "way";
     } else if (!element.charAt(0).match(regexVowels)){    // translate words starting with 1 or more consonants
       resultArray.push(multConsonants(element));
-      // return multConsonants(element);
     } else {
       return "error";
     }
@@ -37,21 +33,13 @@ var translator = function(input){
   translatedSentence = (resultArray).join(" ");
 };
 
-
 $(function(){
   $("#user-input").submit(function(event){
     event.preventDefault();
 
     userSentence = ($("#userInput").val()).split(" ");
-
     translator(userSentence);
 
     $("#result").empty().append(translatedSentence);
-
-
-
-    // $("#result > p").text(translatedSentence);
-
-
   });
 });
