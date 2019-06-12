@@ -2,7 +2,6 @@ var regexLetters = /[a-zA-Z]/;
 var regexVowels = /[aeiou]/i;
 var breakpoint;
 var userSentence = [];
-var resultArray = [];
 var translatedSentence = "";
 
 var multConsonants = function(word) {
@@ -20,6 +19,7 @@ var multConsonants = function(word) {
 
 
 var translator = function(input){
+  var resultArray = [];
   input.forEach(function(element){
     if (!element.charAt(0).match(regexLetters)) {       // filters element starting with a non-letter
       resultArray.push(element);
@@ -34,6 +34,7 @@ var translator = function(input){
       return "error";
     }
   });
+  translatedSentence = (resultArray).join(" ");
 };
 
 
@@ -44,9 +45,8 @@ $(function(){
     userSentence = ($("#userInput").val()).split(" ");
 
     translator(userSentence);
-    translatedSentence = (resultArray).join(" ");
 
-    $("#result").after(translatedSentence);
+    $("#result").empty().append(translatedSentence);
 
 
 
